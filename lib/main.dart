@@ -24,9 +24,8 @@ class CalculatorHomePage extends StatefulWidget {
 class _CalculatorHomePageState extends State<CalculatorHomePage> {
   String display = "0";
 
-  // Buttons List
+  // Buttons List (without DEL and =)
   final List<String> buttons = [
-    'DEL', '=', 
     '1', '2', '3', '/',
     '4', '5', '6', '-',
     '7', '8', '9', 'X',
@@ -41,7 +40,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
       ),
       body: Column(
         children: <Widget>[
-          // Display section
+          // Display Section
           Expanded(
             flex: 1,
             child: Container(
@@ -54,6 +53,33 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
               ),
             ),
           ),
+          // Row for DEL and = buttons
+          Row(
+            children: [
+              Expanded(
+                child: CalculatorButton(
+                  buttonText: 'DEL',
+                  buttonColor: Colors.blue,
+                  onPressed: () {
+                    setState(() {
+                      onButtonPressed('DEL');
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: CalculatorButton(
+                  buttonText: '=',
+                  buttonColor: Colors.blue,
+                  onPressed: () {
+                    setState(() {
+                      onButtonPressed('=');
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
           // Button Grid section
           Expanded(
             flex: 3,
@@ -65,9 +91,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
               itemBuilder: (BuildContext context, int index) {
                 // Define button color based on the button type
                 Color buttonColor;
-                if (['DEL', '='].contains(buttons[index])) {
-                  buttonColor = Colors.blue;
-                } else if (['/', '-', 'X', '+', '%'].contains(buttons[index])) {
+                if (['/', '-', 'X', '+', '%'].contains(buttons[index])) {
                   buttonColor = Colors.green;
                 } else {
                   buttonColor = Colors.orange;
